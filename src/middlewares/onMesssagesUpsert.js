@@ -25,7 +25,6 @@ exports.onMessagesUpsert = async ({ socket, messages, groupCache }) => {
     if (isAtLeastMinutesInPast(timestamp)) {
       continue;
     }
-    console.log(webMessage);
     if (isAddOrLeave.includes(webMessage.messageStubType)) {
       let action = "";
       if (webMessage.messageStubType === GROUP_PARTICIPANT_ADD) {
