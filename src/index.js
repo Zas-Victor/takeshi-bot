@@ -91,7 +91,6 @@ const safeLoad = async (socket, groupCache, retryCount = 0) => {
       await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY));
 
       const newSocket = await connect(groupCache);
-
       return await safeLoad(newSocket, groupCache, retryCount + 1);
     } else {
       errorLog(
@@ -109,7 +108,6 @@ async function start() {
 
     const groupCache = new NodeCache({ stdTTL: 5 * 60, useClones: false });
     const socket = await connect(groupCache);
-
     const loadSuccess = await safeLoad(socket, groupCache);
 
     if (!loadSuccess) {

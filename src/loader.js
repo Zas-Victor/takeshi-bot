@@ -26,6 +26,7 @@ exports.load = (socket, groupCache) => {
     setTimeout(() => {
       safeEventHandler(
         () =>
+    
           onMessagesUpsert({
             socket,
             messages: data.messages,

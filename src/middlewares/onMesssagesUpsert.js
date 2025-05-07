@@ -15,25 +15,25 @@ const { loadCommonFunctions } = require("../utils/loadCommonFunctions");
 const { onGroupParticipantsUpdate } = require("./onGroupParticipantsUpdate");
 
 exports.onMessagesUpsert = async ({ socket, messages, groupCache }) => {
+
   if (!messages.length) {
     return;
   }
-
   for (const webMessage of messages) {
     const timestamp = webMessage.messageTimestamp;
 
     if (isAtLeastMinutesInPast(timestamp)) {
       continue;
     }
-
+    console.log(webMessage);
     if (isAddOrLeave.includes(webMessage.messageStubType)) {
       let action = "";
       if (webMessage.messageStubType === GROUP_PARTICIPANT_ADD) {
         action = "add";
       } else if (webMessage.messageStubType === GROUP_PARTICIPANT_LEAVE) {
         action = "remove";
+        return;
       }
-
       onGroupParticipantsUpdate({
         userJid: webMessage.messageStubParameters[0],
         remoteJid: webMessage.key.remoteJid,
